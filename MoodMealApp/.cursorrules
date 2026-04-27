@@ -1,0 +1,89 @@
+# ============================================================
+# CURSOR RULES — React Native + Ignite Boilerplate
+# Figma → Code Workflow
+# ============================================================
+# This file is read by Cursor before every generation.
+# Keep it updated as your project evolves.
+# ============================================================
+
+## PROJECT IDENTITY
+- App name: DevTask (or replace with your app name)
+- Framework: React Native (bare workflow)
+- Boilerplate: Ignite (by Infinite Red)
+- Language: TypeScript (strict mode)
+- Navigation: React Navigation v6 (stack + bottom tabs)
+- State: MobX-State-Tree (Ignite default) OR Zustand (replace if different)
+- Styling: StyleSheet.create ONLY — no inline styles, no styled-components
+- Backend: Firebase Auth + Realtime Database
+
+## DIRECTORY RULES — ALWAYS follow Ignite structure
+```
+src/
+  app/             # Navigation stacks
+  components/      # Shared reusable components
+  screens/         # One folder per screen
+    HomeScreen/
+      index.tsx
+      HomeScreen.styles.ts   # Always separate styles file
+  models/          # MobX-State-Tree models
+  services/        # API, Firebase, storage
+  theme/
+    colors.ts      # ONLY source of color values
+    spacing.ts     # ONLY source of spacing values
+    typography.ts  # ONLY source of font sizes/weights
+  utils/
+  hooks/
+```
+
+## COMPONENT RULES
+- Functional components only — no class components
+- Every component must be typed with a Props interface
+- Export named exports, not default exports (except screens)
+- Never import colors/spacing as raw numbers — always use theme tokens
+- Every touchable must have an `accessibilityLabel`
+- Use `Pressable` not `TouchableOpacity` for new components
+
+## STYLING RULES — CRITICAL
+- NEVER hardcode colors: ❌ color: '#1A73E8' → ✅ color: colors.primary
+- NEVER hardcode spacing: ❌ padding: 16 → ✅ padding: spacing.md
+- NEVER hardcode font sizes: ❌ fontSize: 16 → ✅ fontSize: typography.body
+- All StyleSheet.create calls go in a separate *.styles.ts file
+- Use `flex: 1` for full-screen containers
+- Always set backgroundColor on screen root views
+
+## FIGMA → CODE TRANSLATION RULES
+- When given Figma specs, extract exact values and map to the nearest theme token
+- If a value doesn't exist in theme, ADD it to the theme file and use the token
+- Figma Auto Layout → flexDirection + gap (use gap property, RN 0.71+)
+- Figma padding (top/right/bottom/left) → paddingVertical/paddingHorizontal if symmetric
+- Figma corner radius → borderRadius
+- Figma opacity → opacity prop (not color alpha)
+- Figma text styles → map to typography tokens
+
+## SCREEN GENERATION RULES
+- Every screen gets its own folder: src/screens/[ScreenName]/
+- Required files per screen: index.tsx + [ScreenName].styles.ts
+- Screen component must accept navigation prop typed with NavigationProp
+- Wrap screen in SafeAreaView from react-native-safe-area-context
+- Add a useHeader() call or set navigation options in useEffect
+- Never fetch data directly in the screen — use a custom hook or store action
+
+## FIREBASE RULES
+- Auth logic lives in src/services/firebase/auth.ts
+- Database reads/writes in src/services/firebase/database.ts
+- Never call Firebase directly from a screen or component
+- Always handle loading, success, and error states
+
+## CODE QUALITY
+- No `any` types — use proper TypeScript
+- No console.log in production code (use a logger utility)
+- Destructure props at the top of every component
+- Use optional chaining (?.) and nullish coalescing (??) — never assume data exists
+- Every list must have a keyExtractor
+
+## WHAT NOT TO DO
+- Do not install new packages without asking first
+- Do not modify theme files unless explicitly asked
+- Do not use Animated API directly — prefer Reanimated 2
+- Do not create barrel exports (index.ts re-exports) unless asked
+- Do not use React.FC — use explicit function declarations

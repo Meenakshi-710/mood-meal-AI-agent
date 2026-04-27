@@ -1,0 +1,2 @@
+/** Screen-only UI. */
+export {}
