@@ -6,5 +6,5 @@
  * https://reactnative.dev/docs/security#storing-sensitive-info
  */
 export default {
-  API_URL: "http://localhost:4000/api",
+  API_URL: "https://mood-meal-ai-agent.onrender.com/api",
 }
